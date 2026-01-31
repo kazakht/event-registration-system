@@ -10,36 +10,36 @@ erDiagram
 
     Events {
         uniqueidentifier Id PK "イベントID"
-        nvarchar EventName "イベント名"
+        nvarchar(200) EventName "イベント名"
         datetime EventDate "開催日時"
-        nvarchar Location "開催場所"
-        nvarchar Description "イベント概要"
-        datetime CreatedAt "作成日時"
-        datetime UpdatedAt "更新日時"
+        nvarchar(500) Location "開催場所"
+        nvarchar(max) Description "イベント概要"
+        datetime2(7) CreatedAt "作成日時"
+        datetime2(7) UpdatedAt "更新日時"
     }
 
     Tickets {
         uniqueidentifier Id PK "チケットID"
         uniqueidentifier EventId FK "イベントID"
-        nvarchar TicketType "チケット種別名"
+        nvarchar(100) TicketType "チケット種別名"
         int Price "価格"
         int TotalQuantity "総数"
         int AvailableQuantity "残数"
-        datetime CreatedAt "作成日時"
-        datetime UpdatedAt "更新日時"
+        datetime2(7) CreatedAt "作成日時"
+        datetime2(7) UpdatedAt "更新日時"
     }
 
     Users {
         uniqueidentifier Id PK "ユーザーID"
-        nvarchar Email UK "メールアドレス"
-        datetime CreatedAt "作成日時"
+        nvarchar(256) Email UK "メールアドレス"
+        datetime2(7) CreatedAt "作成日時"
     }
 
     Registrations {
         uniqueidentifier Id PK "登録ID"
         uniqueidentifier UserId FK "ユーザーID"
         uniqueidentifier TicketId FK "チケットID"
-        datetime RegisteredAt "登録日時"
+        datetime2(7) RegisteredAt "登録日時"
     }
 ```
 
