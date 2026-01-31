@@ -98,7 +98,10 @@
 - イベント削除時はチケット・登録も削除される設計
 
 ### EF Core での自動生成
-- `Id`: `[DatabaseGenerated(DatabaseGeneratedOption.Identity)]` 属性で GUID 自動生成
+- `Id`: GUID の自動生成
+  - **デフォルト動作**: EF Core はクライアント側で GUID を自動生成（`DatabaseGenerated(DatabaseGeneratedOption.Identity)` 属性を指定した場合）
+  - **DB 側での生成**: データベース側で GUID を生成する場合は、Fluent API で `HasDefaultValueSql("NEWID()")` を設定する必要がある
+  - 例: `modelBuilder.Entity<Event>().Property(e => e.Id).HasDefaultValueSql("NEWID()");`
 - `CreatedAt`: DBのデフォルト値（GETDATE()）により INSERT 時に自動設定
 - `UpdatedAt`: 
   - INSERT 時は DB のデフォルト値（GETDATE()）で設定
