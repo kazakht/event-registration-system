@@ -59,9 +59,6 @@
 **ユニークキー制約:**
 - UK_Users_Email (Email)
 
-**インデックス:**
-- UX_Users_Email (Email, UNIQUE)
-
 ---
 
 ## Registrations（参加登録）
