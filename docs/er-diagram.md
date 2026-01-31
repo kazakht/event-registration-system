@@ -9,8 +9,8 @@ erDiagram
     Users ||--o{ Registrations : "registers"
 
     Events {
-        uniqueidentifier EventId PK "イベントID"
-        nvarchar EventName "イベント名"
+        uniqueidentifier Id PK "イベントID"
+        nvarchar Name "イベント名"
         datetime EventDate "開催日時"
         nvarchar Location "開催場所"
         nvarchar Description "イベント概要"
@@ -19,7 +19,7 @@ erDiagram
     }
 
     Tickets {
-        uniqueidentifier TicketId PK "チケットID"
+        uniqueidentifier Id PK "チケットID"
         uniqueidentifier EventId FK "イベントID"
         nvarchar TicketType "チケット種別名"
         int Price "価格"
@@ -30,13 +30,13 @@ erDiagram
     }
 
     Users {
-        uniqueidentifier UserId PK "ユーザーID"
+        uniqueidentifier Id PK "ユーザーID"
         nvarchar Email UK "メールアドレス"
         datetime CreatedAt "作成日時"
     }
 
     Registrations {
-        uniqueidentifier RegistrationId PK "登録ID"
+        uniqueidentifier Id PK "登録ID"
         uniqueidentifier UserId FK "ユーザーID"
         uniqueidentifier TicketId FK "チケットID"
         datetime RegisteredAt "登録日時"
@@ -47,27 +47,27 @@ erDiagram
 
 ### Events（イベント）
 - **説明**: イベント基本情報を管理
-- **主キー**: EventId
+- **主キー**: Id
 - **対応機能**: FR-003, FR-005～FR-009
 
 ### Tickets（チケット）
 - **説明**: イベントごとのチケット種別と在庫を管理
-- **主キー**: TicketId
-- **外部キー**: EventId → Events.EventId
+- **主キー**: Id
+- **外部キー**: EventId → Events.Id
 - **対応機能**: FR-005, FR-010, FR-012
 
 ### Users（ユーザー）
 - **説明**: イベント参加者の情報を管理（メールアドレスベース）
-- **主キー**: UserId
+- **主キー**: Id
 - **ユニークキー**: Email
 - **対応機能**: FR-009, FR-011, FR-013～FR-016
 
 ### Registrations（参加登録）
 - **説明**: 参加者の登録情報を管理
-- **主キー**: RegistrationId
+- **主キー**: Id
 - **外部キー**: 
-  - UserId → Users.UserId
-  - TicketId → Tickets.TicketId
+  - UserId → Users.Id
+  - TicketId → Tickets.Id
 - **対応機能**: FR-011～FR-016
 
 ## リレーションシップ
@@ -80,7 +80,7 @@ erDiagram
 
 ## インデックス設計（推奨）
 
-- Events.EventName（検索用）
+- Events.Name（検索用）
 - Events.EventDate（開催予定イベント抽出用）
 - Tickets.EventId（イベント詳細取得用）
 - Users.Email（UNIQUE、参加登録時の検索・重複チェック用）
