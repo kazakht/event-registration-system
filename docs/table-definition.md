@@ -101,8 +101,13 @@
 - `Id`: GUID の自動生成
   - **デフォルト動作**: EF Core は GUID 型のプロパティをクライアント側で自動生成（特別な属性や設定は不要）
   - **DB 側での生成**: データベース側で GUID を生成する場合は、Fluent API で `HasDefaultValueSql("NEWID()")` を設定する
-  - 例: `modelBuilder.Entity<Event>().Property(e => e.Id).HasDefaultValueSql("NEWID()");`
-  - **注意**: DB 側で GUID を生成するには `HasDefaultValueSql()` の設定が必須。`[DatabaseGenerated(DatabaseGeneratedOption.Identity)]` 属性だけでは DB 側生成にならない
+  - **設定例**:
+    ```csharp
+    modelBuilder.Entity<Event>().Property(e => e.Id).HasDefaultValueSql("NEWID()");
+    ```
+  - **注意**: 
+    - DB 側で GUID を生成するには `HasDefaultValueSql()` の設定が必須
+    - `[DatabaseGenerated(DatabaseGeneratedOption.Identity)]` 属性だけでは DB 側生成にならない
 - `CreatedAt`: DBのデフォルト値（GETDATE()）により INSERT 時に自動設定
 - `UpdatedAt`: 
   - INSERT 時は DB のデフォルト値（GETDATE()）で設定
