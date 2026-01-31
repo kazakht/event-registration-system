@@ -56,9 +56,6 @@
 | メールアドレス | Email | nvarchar(256) | UK | ○ | - | 参加者のメールアドレス、ユニーク制約 |
 | 作成日時 | CreatedAt | datetime2(7) | - | ○ | GETDATE() | レコード作成日時（JST） |
 
-**ユニークキー制約:**
-- UK_Users_Email (Email)
-
 ---
 
 ## Registrations（参加登録）
@@ -92,7 +89,7 @@
 - **文字列型**: Unicode対応のため `nvarchar` を使用
 
 ### タイムゾーン
-- すべての日時フィールドは JST（日本標準時）で保存
+- すべての日時フィールドは JST（日本標準時）固定
 - SQL Server の `GETDATE()` 関数でサーバーのローカル時刻（JST）を使用
 - アプリケーション側でもタイムゾーン変換は不要
 
