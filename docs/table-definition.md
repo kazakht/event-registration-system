@@ -8,7 +8,7 @@
 
 | 論理名 | 物理名 | 型 | PK/FK | Not Null | デフォルト値 | 備考 |
 |--------|--------|-----|-------|----------|--------------|------|
-| イベントID | Id | uniqueidentifier | PK | ○ | NEWID() | 主キー、EF Core で自動生成 |
+| イベントID | Id | uniqueidentifier | PK | ○ | - | 主キー、アプリケーション側で GUID を生成 |
 | イベント名 | Name | nvarchar(200) | - | ○ | - | イベントのタイトル、検索対象 |
 | 開催日時 | EventDate | datetime2(7) | - | ○ | - | イベント開催日時 |
 | 開催場所 | Location | nvarchar(500) | - | ○ | - | 開催場所の住所や施設名 |
@@ -26,7 +26,7 @@
 
 | 論理名 | 物理名 | 型 | PK/FK | Not Null | デフォルト値 | 備考 |
 |--------|--------|-----|-------|----------|--------------|------|
-| チケットID | Id | uniqueidentifier | PK | ○ | NEWID() | 主キー、EF Core で自動生成 |
+| チケットID | Id | uniqueidentifier | PK | ○ | - | 主キー、アプリケーション側で GUID を生成 |
 | イベントID | EventId | uniqueidentifier | FK | ○ | - | Events.Id への外部キー |
 | チケット種別名 | TicketType | nvarchar(100) | - | ○ | - | 一般、学生、VIPなど |
 | 価格 | Price | int | - | ○ | - | チケット価格（円） |
@@ -52,7 +52,7 @@
 
 | 論理名 | 物理名 | 型 | PK/FK | Not Null | デフォルト値 | 備考 |
 |--------|--------|-----|-------|----------|--------------|------|
-| ユーザーID | Id | uniqueidentifier | PK | ○ | NEWID() | 主キー、EF Core で自動生成 |
+| ユーザーID | Id | uniqueidentifier | PK | ○ | - | 主キー、アプリケーション側で GUID を生成 |
 | メールアドレス | Email | nvarchar(256) | UK | ○ | - | 参加者のメールアドレス、ユニーク制約 |
 | 作成日時 | CreatedAt | datetime2(7) | - | ○ | GETDATE() | レコード作成日時（JST） |
 
@@ -65,7 +65,7 @@
 
 | 論理名 | 物理名 | 型 | PK/FK | Not Null | デフォルト値 | 備考 |
 |--------|--------|-----|-------|----------|--------------|------|
-| 登録ID | Id | uniqueidentifier | PK | ○ | NEWID() | 主キー、EF Core で自動生成 |
+| 登録ID | Id | uniqueidentifier | PK | ○ | - | 主キー、アプリケーション側で GUID を生成 |
 | ユーザーID | UserId | uniqueidentifier | FK | ○ | - | Users.Id への外部キー |
 | チケットID | TicketId | uniqueidentifier | FK | ○ | - | Tickets.Id への外部キー |
 | 登録日時 | RegisteredAt | datetime2(7) | - | ○ | GETDATE() | 参加登録日時（JST） |
@@ -101,5 +101,19 @@
 - イベント削除時はチケット・登録も削除される設計
 
 ### EF Core での自動生成
-- `Id`: `[DatabaseGenerated(DatabaseGeneratedOption.Identity)]` 属性で GUID 自動生成
-- `CreatedAt`, `UpdatedAt`: SaveChanges 時に自動設定（インターセプタまたはオーバーライドで実装）
+- `Id`: エンティティ作成時にアプリケーション側で `Guid.NewGuid()` を使用して GUID を生成（データベースデフォルトは使用しない）
+- `CreatedAt`, `UpdatedAt`: SaveChanges 時に自動設定（インターセプタまたは `SaveChangesAsync` オーバーライドで実装）
+
+**実装例:**
+```csharp
+public class Event
+{
+    public Event()
+    {
+        Id = Guid.NewGuid(); // コンストラクタで GUID を生成
+    }
+    
+    public Guid Id { get; set; }
+    // その他のプロパティ...
+}
+```
