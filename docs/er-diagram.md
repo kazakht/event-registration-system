@@ -47,27 +47,27 @@ erDiagram
 
 ### Events（イベント）
 - **説明**: イベント基本情報を管理
-- **主キー**: EventId
+- **主キー**: Id
 - **対応機能**: FR-003, FR-005～FR-009
 
 ### Tickets（チケット）
 - **説明**: イベントごとのチケット種別と在庫を管理
-- **主キー**: TicketId
-- **外部キー**: EventId → Events.EventId
+- **主キー**: Id
+- **外部キー**: EventId → Events.Id
 - **対応機能**: FR-005, FR-010, FR-012
 
 ### Users（ユーザー）
 - **説明**: イベント参加者の情報を管理（メールアドレスベース）
-- **主キー**: UserId
+- **主キー**: Id
 - **ユニークキー**: Email
 - **対応機能**: FR-009, FR-011, FR-013～FR-016
 
 ### Registrations（参加登録）
 - **説明**: 参加者の登録情報を管理
-- **主キー**: RegistrationId
+- **主キー**: Id
 - **外部キー**: 
-  - UserId → Users.UserId
-  - TicketId → Tickets.TicketId
+  - UserId → Users.Id
+  - TicketId → Tickets.Id
 - **対応機能**: FR-011～FR-016
 
 ## リレーションシップ
