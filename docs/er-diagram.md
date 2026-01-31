@@ -9,7 +9,7 @@ erDiagram
     Users ||--o{ Registrations : "registers"
 
     Events {
-        uniqueidentifier EventId PK "イベントID"
+        uniqueidentifier Id PK "イベントID"
         nvarchar EventName "イベント名"
         datetime EventDate "開催日時"
         nvarchar Location "開催場所"
@@ -19,7 +19,7 @@ erDiagram
     }
 
     Tickets {
-        uniqueidentifier TicketId PK "チケットID"
+        uniqueidentifier Id PK "チケットID"
         uniqueidentifier EventId FK "イベントID"
         nvarchar TicketType "チケット種別名"
         int Price "価格"
@@ -30,13 +30,13 @@ erDiagram
     }
 
     Users {
-        uniqueidentifier UserId PK "ユーザーID"
+        uniqueidentifier Id PK "ユーザーID"
         nvarchar Email UK "メールアドレス"
         datetime CreatedAt "作成日時"
     }
 
     Registrations {
-        uniqueidentifier RegistrationId PK "登録ID"
+        uniqueidentifier Id PK "登録ID"
         uniqueidentifier UserId FK "ユーザーID"
         uniqueidentifier TicketId FK "チケットID"
         datetime RegisteredAt "登録日時"
