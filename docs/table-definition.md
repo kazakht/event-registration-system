@@ -14,7 +14,7 @@
 | 開催場所 | Location | nvarchar(500) | - | ○ | - | 開催場所の住所や施設名 |
 | イベント概要 | Description | nvarchar(max) | - | ○ | - | イベントの詳細説明 |
 | 作成日時 | CreatedAt | datetime2(7) | - | ○ | GETDATE() | レコード作成日時（JST） |
-| 更新日時 | UpdatedAt | datetime2(7) | - | ○ | GETDATE() | レコード更新日時（JST） |
+| 更新日時 | UpdatedAt | datetime2(7) | - | ○ | GETDATE() | レコード更新日時（JST）、UPDATE時はアプリ側で明示的に更新 |
 
 **インデックス:**
 - IX_Events_Name (Name)
@@ -33,7 +33,7 @@
 | 総数 | TotalQuantity | int | - | ○ | - | チケットの総発行枚数 |
 | 残数 | AvailableQuantity | int | - | ○ | - | 購入可能な残りチケット数 |
 | 作成日時 | CreatedAt | datetime2(7) | - | ○ | GETDATE() | レコード作成日時（JST） |
-| 更新日時 | UpdatedAt | datetime2(7) | - | ○ | GETDATE() | レコード更新日時（JST） |
+| 更新日時 | UpdatedAt | datetime2(7) | - | ○ | GETDATE() | レコード更新日時（JST）、UPDATE時はアプリ側で明示的に更新 |
 
 **外部キー制約:**
 - FK_Tickets_Events: EventId → Events.Id (ON DELETE CASCADE)
@@ -102,4 +102,14 @@
 
 ### EF Core での自動生成
 - `Id`: `[DatabaseGenerated(DatabaseGeneratedOption.Identity)]` 属性で GUID 自動生成
-- `CreatedAt`, `UpdatedAt`: SaveChanges 時に自動設定（インターセプタまたはオーバーライドで実装）
+- `CreatedAt`: DBのデフォルト値（GETDATE()）により INSERT 時に自動設定
+- `UpdatedAt`: 
+  - INSERT 時は DB のデフォルト値（GETDATE()）で設定
+  - UPDATE 時はアプリケーション側で明示的に更新が必要（SaveChanges のオーバーライドまたはインターセプタで実装）
+  - **注意**: DB のデフォルト値は INSERT 時のみ適用され、UPDATE 時には自動更新されない
+
+### 日時フィールドの更新方法
+レコード更新時の `UpdatedAt` 自動設定は、以下のいずれかの方法で実装します：
+- **EF Core インターセプタ**: `SaveChangesInterceptor` を継承して Modified 状態のエンティティの UpdatedAt を設定
+- **SaveChanges オーバーライド**: `DbContext.SaveChanges()` をオーバーライドして Modified エンティティを検出し UpdatedAt を設定
+- **トリガー**: SQL Server のトリガーで UPDATE 時に UpdatedAt を自動更新（非推奨：EF Core の変更追跡と競合の可能性あり）
