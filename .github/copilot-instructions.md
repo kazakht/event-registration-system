@@ -5,10 +5,16 @@
 - 実装は常に「型安全」で「保守性が高い」コードを目指してください。
 
 ## 2. 技術スタック
-- Framework: Next.js (App Router)
-- Language: TypeScript
-- Database: PostgreSQL (Prisma ORM)
-- UI: Tailwind CSS, shadcn/ui
+- Frontend:
+  - Framework: Next.js (App Router)
+  - Language: TypeScript
+  - UI: Tailwind CSS, shadcn/ui
+
+- Backend:
+  - Language: C# (ASP.NET Core MVC)
+  - Runtime: .NET 8 (ASP.NET Core)
+  - Database: Microsoft SQL Server (Entity Framework Core)
+  - API: MVC Controllers / REST API (Kestrel hosting) or Minimal APIs
 
 ## 3. コーディングスタイル
 - コンポーネントは `function` キーワードを使用した関数型コンポーネントで作成する。
