@@ -102,11 +102,5 @@
 - `CreatedAt`: DBのデフォルト値（GETDATE()）により INSERT 時に自動設定
 - `UpdatedAt`: 
   - INSERT 時は DB のデフォルト値（GETDATE()）で設定
-  - UPDATE 時はアプリケーション側で明示的に更新が必要（SaveChanges のオーバーライドまたはインターセプタで実装）
+  - UPDATE 時はアプリケーション側で明示的に更新が必要
   - **注意**: DB のデフォルト値は INSERT 時のみ適用され、UPDATE 時には自動更新されない
-
-### 日時フィールドの更新方法
-レコード更新時の `UpdatedAt` 自動設定は、以下のいずれかの方法で実装します：
-- **EF Core インターセプタ**: `SaveChangesInterceptor` を継承して Modified 状態のエンティティの UpdatedAt を設定
-- **SaveChanges オーバーライド**: `DbContext.SaveChanges()` をオーバーライドして Modified エンティティを検出し UpdatedAt を設定
-- **トリガー**: SQL Server のトリガーで UPDATE 時に UpdatedAt を自動更新（非推奨：EF Core の変更追跡がトリガーによる変更を認識できず、DbContext のキャッシュとDB の実際の値に不整合が生じる可能性がある）
