@@ -9,7 +9,7 @@ erDiagram
     Users ||--o{ Registrations : "registers"
 
     Events {
-        uniqueidentifier EventId PK "イベントID"
+        uniqueidentifier Id PK "イベントID"
         nvarchar(200) EventName "イベント名"
         datetime2(7) EventDate "開催日時"
         nvarchar(500) Location "開催場所"
@@ -19,7 +19,7 @@ erDiagram
     }
 
     Tickets {
-        uniqueidentifier TicketId PK "チケットID"
+        uniqueidentifier Id PK "チケットID"
         uniqueidentifier EventId FK "イベントID"
         nvarchar(100) TicketType "チケット種別名"
         int Price "価格"
@@ -30,13 +30,13 @@ erDiagram
     }
 
     Users {
-        uniqueidentifier UserId PK "ユーザーID"
+        uniqueidentifier Id PK "ユーザーID"
         nvarchar(256) Email UK "メールアドレス"
         datetime2(7) CreatedAt "作成日時"
     }
 
     Registrations {
-        uniqueidentifier RegistrationId PK "登録ID"
+        uniqueidentifier Id PK "登録ID"
         uniqueidentifier UserId FK "ユーザーID"
         uniqueidentifier TicketId FK "チケットID"
         datetime2(7) RegisteredAt "登録日時"
@@ -53,7 +53,7 @@ erDiagram
 ### Tickets（チケット）
 - **説明**: イベントごとのチケット種別と在庫を管理
 - **主キー**: TicketId
-- **外部キー**: EventId → Events.EventId
+- **外部キー**: EventId → Events.Id
 - **対応機能**: FR-005, FR-010, FR-012
 
 ### Users（ユーザー）
@@ -66,8 +66,8 @@ erDiagram
 - **説明**: 参加者の登録情報を管理
 - **主キー**: RegistrationId
 - **外部キー**: 
-  - UserId → Users.UserId
-  - TicketId → Tickets.TicketId
+  - UserId → Users.Id
+  - TicketId → Tickets.Id
 - **対応機能**: FR-011～FR-016
 
 ## リレーションシップ
