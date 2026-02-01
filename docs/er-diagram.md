@@ -68,7 +68,7 @@ erDiagram
 - **外部キー**: 
   - UserId → Users.Id
   - TicketId → Tickets.Id
-- **対応機能**: FR-011～FR-016
+- **対応機能**: FR-011～FR-015
 
 ## リレーションシップ
 
