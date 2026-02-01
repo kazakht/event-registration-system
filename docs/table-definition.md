@@ -18,7 +18,7 @@
 
 **インデックス:**
 - IX_Events_Name (Name)
-- IX_Events_EventDate (Date)
+- IX_Events_Date (Date)
 
 ---
 
