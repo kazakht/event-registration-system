@@ -6,7 +6,7 @@
 
 ## Events（イベント）
 
-| 論理名 | 物理名 | 型 | PK/FK | Not Null | デフォルト値 | 備考 |
+| 論理名 | 物理名 | 型 | 制約（PK/FK/UK） | Not Null | デフォルト値 | 備考 |
 |--------|--------|-----|-------|----------|--------------|------|
 | イベントID | Id | uniqueidentifier | PK | ○ | NEWID() | 主キー |
 | イベント名 | Name | nvarchar(200) | - | ○ | - | イベントのタイトル、検索対象 |
@@ -24,7 +24,7 @@
 
 ## Tickets（チケット）
 
-| 論理名 | 物理名 | 型 | PK/FK | Not Null | デフォルト値 | 備考 |
+| 論理名 | 物理名 | 型 |制約（PK/FK/UK） | Not Null | デフォルト値 | 備考 |
 |--------|--------|-----|-------|----------|--------------|------|
 | チケットID | Id | uniqueidentifier | PK | ○ | NEWID() | 主キー |
 | イベントID | EventId | uniqueidentifier | FK | ○ | - | Events.Id への外部キー |
@@ -51,7 +51,7 @@
 
 ## Users（ユーザー）
 
-| 論理名 | 物理名 | 型 | PK/FK | Not Null | デフォルト値 | 備考 |
+| 論理名 | 物理名 | 型 | 制約（PK/FK/UK） | Not Null | デフォルト値 | 備考 |
 |--------|--------|-----|-------|----------|--------------|------|
 | ユーザーID | Id | uniqueidentifier | PK | ○ | NEWID() | 主キー |
 | メールアドレス | Email | nvarchar(256) | UK | ○ | - | 参加者のメールアドレス、ユニーク制約 |
@@ -61,7 +61,7 @@
 
 ## Registrations（参加登録）
 
-| 論理名 | 物理名 | 型 | PK/FK | Not Null | デフォルト値 | 備考 |
+| 論理名 | 物理名 | 型 | 制約（PK/FK/UK） | Not Null | デフォルト値 | 備考 |
 |--------|--------|-----|-------|----------|--------------|------|
 | 登録ID | Id | uniqueidentifier | PK | ○ | NEWID() | 主キー |
 | ユーザーID | UserId | uniqueidentifier | FK | ○ | - | Users.Id への外部キー |
