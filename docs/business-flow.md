@@ -41,8 +41,4 @@ sequenceDiagram
     DB-->>API: 登録結果
     API-->>FE: 登録成功レスポンス（BR-011）
     FE-->>User: 登録完了画面表示（BR-011）
-
-    %% 登録完了メール
-    API->>API: メール送信処理（BR-012）
-    API-->>User: 完了メール送信（BR-012）
 ```
