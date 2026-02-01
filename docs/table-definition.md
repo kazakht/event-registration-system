@@ -10,7 +10,7 @@
 |--------|--------|-----|-------|----------|--------------|------|
 | イベントID | Id | uniqueidentifier | PK | ○ | - | 主キー、EF Core で自動生成（DB側のデフォルト値なし） |
 | イベント名 | Name | nvarchar(200) | - | ○ | - | イベントのタイトル、検索対象 |
-| 開催日時 | Date | datetime2(7) | - | ○ | - | イベント開催日時 |
+| 開催日時 | StartsAt  | datetime2(7) | - | ○ | - | イベント開催日時 |
 | 開催場所 | Location | nvarchar(500) | - | ○ | - | 開催場所の住所や施設名 |
 | イベント概要 | Description | nvarchar(max) | - | ○ | - | イベントの詳細説明 |
 | 作成日時 | CreatedAt | datetime2(7) | - | ○ | SYSDATETIME() | レコード作成日時（JST） |
@@ -18,7 +18,7 @@
 
 **インデックス:**
 - IX_Events_Name (Name)
-- IX_Events_Date (Date)
+- IX_Events_StartsAt (StartsAt)
 
 ---
 
