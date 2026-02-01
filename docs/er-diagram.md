@@ -80,7 +80,7 @@ erDiagram
 
 ## インデックス設計（推奨）
 
-- Events.EventName（検索用）
+- Events.Name（検索用）
 - Events.EventDate（開催予定イベント抽出用）
 - Tickets.EventId（イベント詳細取得用）
 - Users.Email（UNIQUE、参加登録時の検索・重複チェック用）
