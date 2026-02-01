@@ -45,7 +45,7 @@
 - CK_Tickets_AvailableQuantity: AvailableQuantity >= 0
 - CK_Tickets_TotalQuantity: TotalQuantity >= 0
 - CK_Tickets_Price: Price >= 0
-
+- CK_Tickets_Quantity_Consistency: AvailableQuantity <= TotalQuantity
 ---
 
 ## Users（ユーザー）
