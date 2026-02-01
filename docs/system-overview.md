@@ -25,19 +25,6 @@
   - ユーザーは参加登録時にチケットを選択できる
 
 - イベント参加者向けの参加登録
-  - ログインなしでメールアドレスをにゅうりょくするのみで参加登録可能
+  - ログインなしでメールアドレスを入力するのみで参加登録可能
   - ユーザーアカウント作成は不要
   - 選択したチケットで参加登録できる
-
-## 4. 技術スタック
-
-- Frontend:
-  - Framework: Next.js (App Router)
-  - Language: TypeScript
-  - UI: Tailwind CSS, shadcn/ui
-
-- Backend:
-  - Language: C# (ASP.NET Core MVC)
-  - Runtime: .NET 8 (ASP.NET Core)
-  - Database: Microsoft SQL Server (Entity Framework Core)
-  - API: MVC Controllers / REST API (Kestrel hosting) or Minimal APIs
