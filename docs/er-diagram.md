@@ -11,7 +11,7 @@ erDiagram
     Events {
         uniqueidentifier Id PK "イベントID"
         nvarchar(200) Name "イベント名"
-        datetime2(7) Date "開催日時"
+        datetime2(7) EventDateTime "開催日時"
         nvarchar(500) Location "開催場所"
         nvarchar(max) Description "イベント概要"
         datetime2(7) CreatedAt "作成日時"
@@ -81,6 +81,6 @@ erDiagram
 ## インデックス設計（推奨）
 
 - Events.Name（検索用）
-- Events.Date（開催予定イベント抽出用）
+- Events.EventDateTime（開催予定イベント抽出用）
 - Tickets.EventId（イベント詳細取得用）
 - Users.Email（UNIQUE、参加登録時の検索・重複チェック用）
