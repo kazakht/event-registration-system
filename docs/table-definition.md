@@ -8,7 +8,7 @@
 
 | 論理名 | 物理名 | 型 | PK/FK | Not Null | デフォルト値 | 備考 |
 |--------|--------|-----|-------|----------|--------------|------|
-| イベントID | Id | uniqueidentifier | PK | ○ | NEWID() | 主キー、EF Core で自動生成 |
+| イベントID | Id | uniqueidentifier | PK | ○ | - | 主キー、EF Core で自動生成（DB側のデフォルト値なし） |
 | イベント名 | Name | nvarchar(200) | - | ○ | - | イベントのタイトル、検索対象 |
 | 開催日時 | Date | datetime2(7) | - | ○ | - | イベント開催日時 |
 | 開催場所 | Location | nvarchar(500) | - | ○ | - | 開催場所の住所や施設名 |
@@ -26,7 +26,7 @@
 
 | 論理名 | 物理名 | 型 | PK/FK | Not Null | デフォルト値 | 備考 |
 |--------|--------|-----|-------|----------|--------------|------|
-| チケットID | Id | uniqueidentifier | PK | ○ | NEWID() | 主キー、EF Core で自動生成 |
+| チケットID | Id | uniqueidentifier | PK | ○ | - | 主キー、EF Core で自動生成（DB側のデフォルト値なし） |
 | イベントID | EventId | uniqueidentifier | FK | ○ | - | Events.Id への外部キー |
 | チケット種別名 | TicketType | nvarchar(100) | - | ○ | - | 一般、学生、VIPなど |
 | 価格 | Price | int | - | ○ | - | チケット価格（円） |
@@ -52,7 +52,7 @@
 
 | 論理名 | 物理名 | 型 | PK/FK | Not Null | デフォルト値 | 備考 |
 |--------|--------|-----|-------|----------|--------------|------|
-| ユーザーID | Id | uniqueidentifier | PK | ○ | NEWID() | 主キー、EF Core で自動生成 |
+| ユーザーID | Id | uniqueidentifier | PK | ○ | - | 主キー、EF Core で自動生成（DB側のデフォルト値なし） |
 | メールアドレス | Email | nvarchar(256) | UK | ○ | - | 参加者のメールアドレス、ユニーク制約 |
 | 作成日時 | CreatedAt | datetime2(7) | - | ○ | SYSDATETIME() | レコード作成日時（JST） |
 
@@ -62,7 +62,7 @@
 
 | 論理名 | 物理名 | 型 | PK/FK | Not Null | デフォルト値 | 備考 |
 |--------|--------|-----|-------|----------|--------------|------|
-| 登録ID | Id | uniqueidentifier | PK | ○ | NEWID() | 主キー、EF Core で自動生成 |
+| 登録ID | Id | uniqueidentifier | PK | ○ | - | 主キー、EF Core で自動生成（DB側のデフォルト値なし） |
 | ユーザーID | UserId | uniqueidentifier | FK | ○ | - | Users.Id への外部キー |
 | チケットID | TicketId | uniqueidentifier | FK | ○ | - | Tickets.Id への外部キー |
 | 登録日時 | RegisteredAt | datetime2(7) | - | ○ | SYSDATETIME() | 参加登録日時（JST） |
@@ -99,6 +99,16 @@
 - イベント削除時はチケット・登録も削除される設計
 
 ### EF Core での自動生成
+
+#### 主キー（GUID）の生成方式
+- **生成方法**: EF Core がアプリケーション側で GUID を生成
+- **DB のデフォルト値**: なし（`NEWID()` や `NEWSEQUENTIALID()` は使用しない）
+- **理由**: 
+  - SQL Server で `NEWID()` をクラスタ化インデックスの主キーのデフォルト値に設定すると、ランダムな GUID によりインデックスの断片化が発生しやすく、性能劣化の原因となる
+  - `NEWSEQUENTIALID()` も選択肢だが、EF Core での GUID 生成がより一般的で、アプリケーション側で値を制御しやすい
+  - EF Core は `DatabaseGeneratedOption.Identity` により、INSERT 前に自動的に GUID を生成する
+
+#### タイムスタンプの自動生成
 - `CreatedAt`: DBのデフォルト値（SYSDATETIME()）により INSERT 時に自動設定
 - `UpdatedAt`: 
   - INSERT 時は DB のデフォルト値（SYSDATETIME()）で設定
