@@ -11,7 +11,7 @@ erDiagram
     Events {
         uniqueidentifier Id PK "イベントID"
         nvarchar(200) Name "イベント名"
-        datetime Date "開催日時"
+        datetime2(7) Date "開催日時"
         nvarchar(500) Location "開催場所"
         nvarchar(max) Description "イベント概要"
         datetime2(7) CreatedAt "作成日時"
