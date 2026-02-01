@@ -44,6 +44,7 @@
 **チェック制約:**
 - CK_Tickets_AvailableQuantity: AvailableQuantity >= 0
 - CK_Tickets_TotalQuantity: TotalQuantity >= 0
+- CK_Tickets_AvailableQuantity_Total: AvailableQuantity <= TotalQuantity
 - CK_Tickets_Price: Price >= 0
 
 ---
