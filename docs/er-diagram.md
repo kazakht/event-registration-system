@@ -69,7 +69,7 @@ erDiagram
 
 - **説明**: 参加者の登録情報を管理
 - **主キー**: Id
-- **外部キー**: 
+- **外部キー**:
   - UserId → Users.Id
   - TicketId → Tickets.Id
 - **対応機能**: FR-011～FR-015
