@@ -426,7 +426,8 @@ Content-Type: application/json
 ### 同時実行制御
 
 - チケット在庫の同時更新を防ぐため、楽観的同時実行制御（Optimistic Concurrency）または悲観的ロック（Pessimistic Lock）の実装を推奨します
-- EF Core の `RowVersion` 列を使用した楽観的制御が一般的です
+- EF Core の `RowVersion` 列を使用した楽観的制御が一般的ですが、現在の `Tickets` テーブル定義には `RowVersion` 列は存在しません
+  - `RowVersion` を用いた制御を導入する場合は、`Tickets` テーブル（および必要に応じて関連テーブル）に `RowVersion` 列を追加するスキーマ変更と、`docs/table-definition.md` の更新が必要となる将来拡張として扱ってください
 
 ### レート制限
 
