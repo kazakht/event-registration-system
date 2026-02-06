@@ -34,7 +34,7 @@
 
 1. パスパラメータ `eventId` を受け取る。
 2. `Tickets` テーブルを `EventId` で検索し、`TicketType`, `Price`, `TotalQuantity`, `AvailableQuantity` を取得。
-3. 該当イベントが存在しない、またはチケットが見つからない場合は `404 Not Found` または空配列を返却する設計とする。
+3. 該当イベントが存在しない、またはチケットが見つからない場合は `404 Not Found` を返却する設計とする。
 
 ### BP-004: 参加登録
 

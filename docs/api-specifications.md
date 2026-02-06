@@ -159,14 +159,14 @@ Host: api.example.com
   "description": "国内外の人気アーティストが集結する春の音楽イベント。ジャンルを超えた多彩なラインナップでお届けします。",
   "tickets": [
     {
-      "id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+      "id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
       "ticketType": "一般",
       "price": 8000,
       "totalQuantity": 5000,
       "availableQuantity": 1200
     },
     {
-      "id": "2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q",
+      "id": "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e",
       "ticketType": "学生",
       "price": 5000,
       "totalQuantity": 1000,
@@ -241,21 +241,21 @@ Host: api.example.com
 ```json
 [
   {
-    "id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+    "id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
     "ticketType": "一般",
     "price": 8000,
     "totalQuantity": 5000,
     "availableQuantity": 1200
   },
   {
-    "id": "2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p7q",
+    "id": "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e",
     "ticketType": "学生",
     "price": 5000,
     "totalQuantity": 1000,
     "availableQuantity": 300
   },
   {
-    "id": "3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q8r",
+    "id": "3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f",
     "ticketType": "VIP",
     "price": 15000,
     "totalQuantity": 200,
@@ -426,7 +426,8 @@ Content-Type: application/json
 ### 同時実行制御
 
 - チケット在庫の同時更新を防ぐため、楽観的同時実行制御（Optimistic Concurrency）または悲観的ロック（Pessimistic Lock）の実装を推奨します
-- EF Core の `RowVersion` 列を使用した楽観的制御が一般的です
+- EF Core の `RowVersion` 列を使用した楽観的制御が一般的ですが、現在の `Tickets` テーブル定義には `RowVersion` 列は存在しません
+  - `RowVersion` を用いた制御を導入する場合は、`Tickets` テーブル（および必要に応じて関連テーブル）に `RowVersion` 列を追加するスキーマ変更と、`docs/table-definition.md` の更新が必要となる将来拡張として扱ってください
 
 ### レート制限
 
