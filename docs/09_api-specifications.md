@@ -24,7 +24,9 @@ https://api.example.com
 
 ### エラーレスポンス共通形式
 
-ASP.NET Core の `ProblemDetails` 形式に準拠します。
+ASP.NET Core の `ProblemDetails` 形式に準拠します。バリデーションエラー（HTTP 400）時のみ `ValidationProblemDetails` を返し、`errors` フィールドを含めます。その他のエラーは `ProblemDetails`（`errors` なし）です。
+
+#### ValidationProblemDetails（400 バリデーションエラー）
 
 ```json
 {
@@ -34,6 +36,18 @@ ASP.NET Core の `ProblemDetails` 形式に準拠します。
   "errors": {
     "email": ["The email field is required."]
   },
+  "traceId": "00-trace-id-here"
+}
+```
+
+#### ProblemDetails（上記以外のエラー）
+
+```json
+{
+  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.4",
+  "title": "Not Found",
+  "status": 404,
+  "detail": "Event not found.",
   "traceId": "00-trace-id-here"
 }
 ```
@@ -193,6 +207,19 @@ Host: api.example.com
 | tickets[].availableQuantity | integer  | 残数              |
 
 ### エラーレスポンス
+
+#### 400 Bad Request
+
+eventId が GUID 形式として不正な場合。
+
+```json
+{
+  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+  "title": "Bad Request",
+  "status": 400,
+  "detail": "The value 'invalid-uuid' is not valid for 'eventId'."
+}
+```
 
 #### 404 Not Found
 
