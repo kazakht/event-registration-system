@@ -59,9 +59,9 @@
 
 ### 例外処理
 
-| 条件                               | HTTPステータス | detail            |
-| ---------------------------------- | -------------- | ----------------- |
-| 指定された `eventId` が存在しない  | 404 Not Found  | Event not found.  |
+| 条件                              | HTTPステータス | detail           |
+| --------------------------------- | -------------- | ---------------- |
+| 指定された `eventId` が存在しない | 404 Not Found  | Event not found. |
 
 ---
 
@@ -87,9 +87,9 @@
 
 ### 例外処理
 
-| 条件                               | HTTPステータス | detail            |
-| ---------------------------------- | -------------- | ----------------- |
-| 指定された `eventId` が存在しない  | 404 Not Found  | Event not found.  |
+| 条件                              | HTTPステータス | detail           |
+| --------------------------------- | -------------- | ---------------- |
+| 指定された `eventId` が存在しない | 404 Not Found  | Event not found. |
 
 ---
 
@@ -133,11 +133,11 @@
 
 ### 例外処理
 
-| 条件                                                        | HTTPステータス | detail                                        |
-| ----------------------------------------------------------- | -------------- | --------------------------------------------- |
-| `email` の形式が不正                                        | 400 Bad Request | The email field is not a valid e-mail address. |
-| 指定された `ticketId` が存在しない                          | 404 Not Found   | Ticket not found.                              |
-| チケットの在庫がない（`AvailableQuantity <= 0`）            | 409 Conflict    | Ticket is sold out.                            |
-| 同一ユーザーが同一イベントに既に登録済み                    | 409 Conflict    | User is already registered for this event.     |
-| 排他制御による更新失敗（同時実行競合）                      | 409 Conflict    | Ticket is sold out.                            |
-| トランザクション内で予期しないエラーが発生した場合          | -               | トランザクションをロールバックする             |
+| 条件                                               | HTTPステータス            | detail                                                            |
+| -------------------------------------------------- | ------------------------- | ----------------------------------------------------------------- |
+| `email` の形式が不正                               | 400 Bad Request           | The email field is not a valid e-mail address.                    |
+| 指定された `ticketId` が存在しない                 | 404 Not Found             | Ticket not found.                                                 |
+| チケットの在庫がない（`AvailableQuantity <= 0`）   | 409 Conflict              | Ticket is sold out.                                               |
+| 同一ユーザーが同一イベントに既に登録済み           | 409 Conflict              | User is already registered for this event.                        |
+| 排他制御による更新失敗（同時実行競合）             | 409 Conflict              | Ticket is sold out.                                               |
+| トランザクション内で予期しないエラーが発生した場合 | 500 Internal Server Error | An unexpected error occurred and the transaction was rolled back. |
