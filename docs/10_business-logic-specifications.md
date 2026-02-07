@@ -105,12 +105,15 @@
    - `email`（string, 必須）: 参加者のメールアドレス
      - RFC 5322 準拠の正規表現でメールアドレス形式を検証する。不正な場合は `400 Bad Request` を返却する。
    - `ticketId`（GUID, 必須）: 対象チケットのID
-2. `Tickets` テーブルから `Id = ticketId` に一致するレコードを取得する。該当レコードが存在しない場合、`404 Not Found`（detail: "Ticket not found."）を返却する。
-3. 取得したチケットの `AvailableQuantity` を確認する。`AvailableQuantity <= 0` の場合、`409 Conflict`（detail: "Ticket is sold out."）を返却する。
-4. **--- トランザクション開始 ---**
+2. **--- トランザクション開始 ---**
+3. `Tickets` テーブルから `Id = ticketId` に一致するレコードを取得する。該当レコードが存在しない場合、`404 Not Found`（detail: "Ticket not found."）を返却し、トランザクションをロールバックする。
+4. 取得したチケットの `AvailableQuantity` を確認する。`AvailableQuantity <= 0` の場合、`409 Conflict`（detail: "Ticket is sold out."）を返却し、トランザクションをロールバックする。
 5. `Users` テーブルを `Email = email` で検索する。
    - 該当ユーザーが存在する場合、そのレコードの `Id` を `userId` として使用する。
-   - 該当ユーザーが存在しない場合、`Users` テーブルに新規レコードを INSERT する。`Email` カラムには UNIQUE 制約が設定されているため、同時リクエストによる重複挿入はDB制約により防止される。INSERT したレコードの `Id` を `userId` として使用する。
+   - 該当ユーザーが存在しない場合、`Users` テーブルに新規レコードを INSERT する。
+     - `Email` カラムには UNIQUE 制約が設定されているため、同時リクエストによる重複挿入が発生した場合は UNIQUE 違反例外となる。
+     - UNIQUE 違反例外が発生した場合は、`Users` テーブルを再検索し、取得できた `Id` を `userId` として使用する（UPSERT 相当の手順）。
+     - INSERT が成功した場合は、追加したレコードの `Id` を `userId` として使用する。
 6. `Registrations` テーブルを `UserId = userId` で検索し、取得したレコードの `TicketId` を元に `Tickets` テーブルを参照して、同一イベント（`Tickets.EventId`）への登録が既に存在するか確認する。既に登録が存在する場合、`409 Conflict`（detail: "User is already registered for this event."）を返却し、トランザクションをロールバックする。
 7. `Registrations` テーブルに以下のレコードを INSERT する。
    - `Id`: EF Core による GUID 自動生成
