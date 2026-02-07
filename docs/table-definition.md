@@ -82,9 +82,8 @@
 - IX_Registrations_UserId (UserId)
 - IX_Registrations_TicketId (TicketId)
 
-**複合ユニークキー制約（オプション）:**
-
-- UK_Registrations_UserTicket (UserId, TicketId) ※同一ユーザーが同一チケットに重複登録を防ぐ場合
+**注記:**
+同一ユーザーの同一イベント重複登録防止は、アプリケーション層で実装してください。登録時にRegistrationsテーブルをチェックし、ユーザーが既にそのイベントのチケットに登録済みかを確認します。
 
 ---
 
