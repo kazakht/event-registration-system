@@ -19,11 +19,9 @@
    - `Events.Name`
    - `Events.Description`
    - `Events.Location`
-   - **検索方式**: 性能要件およびインデックス設計を踏まえて選択する。特に `Events.Description` は `nvarchar(max)` であり、先頭ワイルドカード付きの `LIKE '%keyword%'` をそのまま用いるとフルスキャンになりやすいため、以下の方式を優先的に検討する。
-     - `Events.Name` および `Events.Location`: 前方一致検索（`LIKE 'keyword%'`）と適切なインデックスの併用
-     - `Events.Description`: Full-Text Index による全文検索（`CONTAINS`）、または検索用に正規化した別カラムの追加
-     - 具体的な実装時には、`docs/06_table-definition.md` に記載されたインデックス定義と整合する形で検索クエリを設計する
-   - **暫定対応**: イベント数が少量（数千件以下）の運用を前提とする場合は、実装の簡素化のため全カラムに対して `LIKE '%keyword%'` による部分一致検索も許容する。ただし、性能要件が厳しい場合や将来的なスケールを見据える場合は、上記の最適化された検索方式を採用すること。
+   - **検索方式**:
+     - `Events.Name` および `Events.Location`: `LIKE '%keyword%'` による部分一致検索を基本とする。`docs/06_table-definition.md` に定義された `IX_Events_Name` および `IX_Events_Location` インデックスにより、性能を確保する。
+     - `Events.Description`: `nvarchar(max)` であり、単純な `LIKE '%keyword%'` はフルスキャンになりやすいため、Full-Text Index による全文検索（`CONTAINS`）や検索用に正規化した別カラムの追加を検討する。その場合も、ユーザーから見たマッチングの挙動が部分一致検索と同等になるようにトークナイズや検索条件を設計すること。
 4. 抽出結果から以下のフィールドを射影して返却する。
    - `Events.Id`
    - `Events.Name`

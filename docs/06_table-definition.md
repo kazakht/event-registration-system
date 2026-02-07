@@ -20,6 +20,7 @@
 
 - IX_Events_Name (Name)
 - IX_Events_StartsAt (StartsAt)
+- IX_Events_Location (Location)
 
 ---
 
