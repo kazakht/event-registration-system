@@ -19,7 +19,7 @@
 
 1. クエリパラメータ（`keyword`）を受け取る（任意）。
 2. 現在日時以降のイベント（`StartsAt >= now`）をベースに抽出する。
-3. `keyword` が指定されている場合は `Events.Name` と `Events.Description` に対して部分一致検索（LIKE）を実行する。
+3. `keyword` が指定されている場合は `Events.Name` 、 `Events.Description`、`Events.Location` に対して部分一致検索（LIKE）を実行する。
 4. 必要なフィールド（`Id`, `Name`, `StartsAt`, `Location`）を整形して返却する。
 
 ### BP-002: イベント詳細取得
